@@ -35,7 +35,7 @@ function startAcidRain() {
     // 산성비 게임이 끝난 후 인증서에 쓰기 위해 이름 저장
     localStorage.setItem('playerName', name); 
     
-    // 🚀 [핵심 수정 완료] 바뀐 산성비 게임 파일명으로 정확하게 연결!
+    // 🚀 바뀐 산성비 게임 파일명으로 정확하게 연결!
     window.location.href = "math-acid-rain/game-acid-rain.html";
 }
 
