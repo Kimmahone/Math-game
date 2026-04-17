@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>마법사의 비밀 방</title>
+    <link rel="stylesheet" href="game-style.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div id="game-wrapper">
+        <div class="game-header">
+            <button class="exit-btn" onclick="confirmExit()">🚪 나가기</button>
+            <div id="timer-display">시간 00:00</div>
+            <div id="player-info">마법사: <span id="display-name"></span></div>
+        </div>
+
+        <div id="game-map">
+            <img src="image/bg_room.png" id="map-bg">
+            <div id="player"></div>
+            <div id="obj_letter" class="object" style="display: none; width: 80px; height: 80px; background-image: url('image/obj_letter.png'); z-index: 5;" onclick="readFinalLetter()"></div>
+        </div>
+
+        <div id="inventory">
+            <h3>📝 마법 수첩</h3>
+            <div class="clue-box">
+                <div class="clue-slot" id="slot-0">?</div>
+                <div class="clue-slot" id="slot-1">?</div>
+                <div class="clue-slot" id="slot-2">?</div>
+            </div>
+        </div>
+
+        <div id="joystick-zone">
+            <div id="joystick-base">
+                <div id="joystick-stick"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="welcome-modal" class="modal" style="display: flex;">
+        <div class="modal-content">
+            <h2>✨ 마법사의 방에 온 것을 환영해!</h2>
+            <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 20px;">
+                이 방에는 3개의 수학 단서가 숨겨져 있어.<br>
+                <strong>키보드 방향키(WASD)</strong>나 왼쪽 아래의 <strong>조이스틱</strong>을 움직여 방 안을 탐험해 봐!<br>
+            </p>
+            <button onclick="startGameEngine()" style="font-size: 1.5rem; padding: 15px 30px;">모험 시작하기</button>
+        </div>
+    </div>
+
+    <div id="quiz-modal" class="modal">
+        <div class="modal-content quiz-content">
+            <h2 id="quiz-title">문제</h2>
+            <div id="quiz-body" class="large-text"></div>
+            <div class="hint-section">
+                <button class="hint-btn" onclick="showHint()">💡 힌트 보기 (+30초)</button>
+                <p id="hint-text" style="display:none;" class="large-text"></p>
+            </div>
+            <div class="input-area">
+                <input type="number" id="quiz-input" placeholder="여기에 정답 입력">
+                <div class="btn-group">
+                    <button class="close-btn" onclick="closeModal()">다음에 풀기</button>
+                    <button class="submit-btn" onclick="submitAnswer()">정답 제출</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="safe-modal" class="modal">
+        <div class="modal-content">
+            <h2>🔐 최종 금고</h2>
+            <p class="large-text">찾아낸 단서 숫자 3개를 알맞게 조합하여 입력하세요.</p>
+            <div class="safe-inputs">
+                <input type="number" id="code-0" class="code-in">
+                <input type="number" id="code-1" class="code-in">
+                <input type="number" id="code-2" class="code-in">
+            </div>
+            <div class="btn-group">
+                <button class="close-btn" onclick="closeModal()">물러나기</button>
+                <button class="submit-btn" onclick="unlockSafe()">금고 열기</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cert-modal" class="modal">
+        <div class="certificate-wrap" id="certificate-content">
+            <div class="cert-inner">
+                <h2>📜 위대한 마법사의 편지</h2>
+                <p class="cert-name">자랑스러운 <strong id="certPlayerName"></strong> 마법사에게,</p>
+                <div class="cert-text">
+                    <p>최종 암호를 푼 것을 축하한다! 비밀번호 <strong>[ 5 - 3 - 3 ]</strong> 의 진정한 의미를 아는가?</p>
+                    <p>그것은 이 세상에서 가장 특별한 <strong>'우리 반'</strong>을 뜻한단다.</p>
+                    <p>비밀번호의 숫자들은 너희들 가슴 속에 숨겨진 가장 강력한 <strong>3가지 보물</strong>이지.</p>
+                    <ul class="value-list">
+                        <li>스스로를 사랑하고 믿는 마음, <strong>자존감</strong></li>
+                        <li>우리는 언제나 든든하게 연결되어 있다는, <strong>소속감</strong></li>
+                        <li>내 삶의 주인이 되어 문제를 해결해 나가는, <strong>자기주도성</strong></li>
+                    </ul>
+                    <p>우리 반의 멋진 마법사들, 방탈출 성공을 진심으로 축하한다!</p>
+                </div>
+                <div class="cert-footer">
+                    <p>소요 시간: <span id="certTime"></span></p>
+                    <p id="certDate"></p> 
+                    <p>[담임 선생님]</p>
+                </div>
+            </div>
+        </div>
+        <div class="cert-btn-group">
+            <button class="cert-close-btn" onclick="exitToMainMenu()">❌ 닫기</button>
+            <button id="downloadBtn" onclick="downloadCertificate()">🌟 멋진 인증서 이미지로 저장하기</button>
+        </div>
+    </div>
+
+    <script src="game-script.js"></script>
+</body>
+</html>

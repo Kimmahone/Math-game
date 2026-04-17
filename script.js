@@ -36,7 +36,7 @@ function startAcidRain() {
     localStorage.setItem('playerName', name); 
     
     // 🚀 [핵심 수정 완료] 바뀐 산성비 게임 파일명으로 정확하게 연결!
-    window.location.href = "Math-Acid-Rain/game-acid-rain.html";
+    window.location.href = "math-acid-rain/game-acid-rain.html";
 }
 
 // 🧙‍♂️ [3단원] 마법사의 비밀 방으로 이동하는 함수
@@ -49,5 +49,5 @@ function startGame() {
     localStorage.setItem('escapeRoomChar', selectedChar);
     
     // 방탈출 게임 폴더로 이동
-    window.location.href = "Escape-room/game-math-magic.html";
+    window.location.href = "escape-room/game-math-magic.html";
 }
